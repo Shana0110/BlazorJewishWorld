@@ -1,0 +1,44 @@
+﻿@page "/EuropeRestaurants"
+<PageTitle>EuropeRestaurants</PageTitle>
+<h3>Europe Restaurants</h3>
+<style>
+	body {
+		background-color: antiquewhite;
+		font-family: 'Times New Roman', Times, serif;
+	}
+</style>
+
+@code {
+    KosherRestaurantList tableData = new KosherRestaurantList();
+
+    protected override async Task OnInitializedAsync()
+    {
+        MyApiService myApiService = new MyApiService();
+        tableData = await myApiService.SelectAllKosherRestaurant();
+    }
+}
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Adres</th>
+            <th>Name</th>
+            <th>Telephone</th>
+            <th>FoodType</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in tableData)
+        {
+            <tr>
+                <td>@item.Adress</td>
+                <td>@item.Name</td>
+                <td>@item.Telephone</td>
+                <td>@item.TypeOfFood</td>
+            </tr>
+        }
+    </tbody>
+</table>
+}

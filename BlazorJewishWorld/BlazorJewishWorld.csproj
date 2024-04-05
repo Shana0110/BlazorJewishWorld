@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="model">
+      <HintPath>..\..\JewishWorld\MyService\bin\Debug\net7.0\model.dll</HintPath>
+    </Reference>
+    <Reference Include="MyService">
+      <HintPath>..\..\JewishWorld\MyService\bin\Debug\net7.0\MyService.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

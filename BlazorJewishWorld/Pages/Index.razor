@@ -1,0 +1,72 @@
+﻿@page "/"
+@inject NavigationManager nav
+<PageTitle>Index</PageTitle>
+
+<h1>Jewish World </h1> 
+<style>
+	body{
+		background-color:antiquewhite;
+		font-family:'Times New Roman', Times, serif;
+	}
+</style>
+
+
+
+<div class="mb-3">
+	<label for="LoginForm" sansFontFamily=" Blackadder ITC" class="form-label">User Name:</label>
+	<input type="text" class="form-control" id="LoginForm" placeholder="put your user name" @bind="userNameTxt" style="width: 20em;" /> 
+</div> 
+<div class="mb-3">
+	<div class="row g-3 align-items-center">
+		<span id="LoginForm" class="form-text">
+
+		</span>
+	</div>
+	<div class="col-auto">
+		<label for="LoginForm" sansFontFamily=" Blackadder ITC" class="col-form-label"> Code:</label>
+	</div>
+	<div class="col-auto">
+		<input type="Code" id="LoginForm" class="form-control" placeholder="put your code" style="width: 20em;" aria-describedby="passwordHelpInline" @bind="codeTxt" />
+	</div>
+	
+</div>
+<button @onclick="LoginAction" class="btn btn-primary"> Login</button>
+@if (tf)
+{
+	<div class="modal fade show" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: block;">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Authentication Error</h5>
+					<button type="button" class="close" aria-label="Close" @onclick="() => tf  = false">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					Authentication failed. Please check the details and make sure they are correct
+				</div>
+			</div>
+		</div>
+	</div>
+}
+@code
+{
+	private string userNameTxt;
+	private string codeTxt;
+	private bool tf = false;
+	private async Task LoginAction()
+	{
+		MyApiService api = new MyApiService();
+		UserList list = await api.SelectAllUser();
+		User user = list.FirstOrDefault(x => x.Name.Equals(userNameTxt) && x.Code.Equals(codeTxt));
+		if (user != null)
+		{
+			nav.NavigateTo( "/EuropeRestaurants");
+		}
+		else
+		{
+			tf = true;
+
+		}
+	}
+}
